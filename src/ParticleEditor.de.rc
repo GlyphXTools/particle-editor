@@ -1,0 +1,623 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "Resources\resource.de.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Germany) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS 
+BEGIN
+    VK_DELETE,      ID_EDIT_CLEARALLPARTICLES, VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "H",            ID_VIEW_DEBUGHEAT,      VIRTKEY, CONTROL, NOINVERT
+    VK_HOME,        ID_VIEW_RESETCAMERA,    VIRTKEY, CONTROL, NOINVERT
+    "G",            ID_VIEW_SHOWGROUND,     VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TRACK_EDITOR DIALOGEX 0, 0, 458, 108
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SPINNER1,"Spinner",WS_DISABLED | WS_TABSTOP,235,2,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER2,"Spinner",WS_DISABLED | WS_TABSTOP,323,2,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_EDITOR1,"CurveEditor",WS_TABSTOP,0,16,457,92,WS_EX_CLIENTEDGE
+    COMBOBOX        IDC_COMBO1,43,2,56,63,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_TOOLBAR1,"ToolbarWindow32",WS_TABSTOP | 0x94c,100,1,112,14
+    LTEXT           "Visiert auf:",IDC_STATIC,3,4,36,8
+    LTEXT           "Zeit:",IDC_STATIC,215,4,18,8
+    LTEXT           "%",IDC_STATIC,283,4,8,8
+    LTEXT           "Wert:",IDC_STATIC,301,4,21,8
+END
+
+IDD_RESCALE_SYSTEM DIALOGEX 0, 0, 202, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Partikel System Größenänderung"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,48,42,50,14
+    PUSHBUTTON      "Abbrechen",IDCANCEL,104,42,50,14
+    LTEXT           "Partikel System Dauer skallieren mit:",IDC_STATIC,7,9,127,8
+    CONTROL         "",IDC_SPINNER1,"Spinner",WS_TABSTOP,137,7,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Partikel System Größe skallieren mit:",IDC_STATIC,7,23,127,8
+    CONTROL         "",IDC_SPINNER2,"Spinner",WS_TABSTOP,137,20,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "%",IDC_STATIC,187,9,8,8
+    LTEXT           "%",IDC_STATIC,187,22,8,8
+END
+
+IDD_RESCALE_EMITTER DIALOGEX 0, 0, 176, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Sklalierungsemitter"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,35,42,50,14
+    PUSHBUTTON      "Abbrechen",IDCANCEL,91,42,50,14
+    LTEXT           "Partikel System Dauer skallieren mit:",IDC_STATIC,7,9,102,8
+    CONTROL         "",IDC_SPINNER1,"Spinner",WS_TABSTOP,111,7,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Partikel System Größe skallieren mit:",IDC_STATIC,7,23,87,8
+    CONTROL         "",IDC_SPINNER2,"Spinner",WS_TABSTOP,111,20,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "%",IDC_STATIC,161,9,8,8
+    LTEXT           "%",IDC_STATIC,161,22,8,8
+END
+
+IDD_RANDOM_PARAMETERS DIALOGEX 0, 0, 177, 51
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO1,25,2,80,65,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_SPINNER1,"Spinner",WS_TABSTOP,25,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER2,"Spinner",WS_TABSTOP,75,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER3,"Spinner",WS_TABSTOP,125,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER4,"Spinner",WS_TABSTOP,25,37,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER5,"Spinner",WS_TABSTOP,75,37,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER6,"Spinner",WS_TABSTOP,125,37,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER7,"Spinner",WS_TABSTOP,25,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER8,"Spinner",WS_TABSTOP,75,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER9,"Spinner",WS_TABSTOP,125,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER10,"Spinner",WS_TABSTOP,50,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER11,"Spinner",WS_TABSTOP,50,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER12,"Spinner",WS_TABSTOP,50,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER13,"Spinner",WS_TABSTOP,125,24,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "An Oberfläche binden",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,3,38,81,10
+    CONTROL         "An Oberfläche binden",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,3,38,81,10
+    LTEXT           "Min:",IDC_STATIC4,4,26,14,8
+    LTEXT           "Max:",IDC_STATIC5,4,38,16,8
+    LTEXT           "Typ:",IDC_STATIC,4,5,20,8
+    LTEXT           "X",IDC_STATIC1,44,16,8,8
+    LTEXT           "Y",IDC_STATIC2,94,16,8,8
+    LTEXT           "Z",IDC_STATIC3,144,16,8,8
+    LTEXT           "Seiten Länge:",IDC_STATIC10,3,26,45,8
+    LTEXT           "Radius:",IDC_STATIC11,3,26,25,8
+    LTEXT           "Radius:",IDC_STATIC12,3,26,25,8
+    LTEXT           "Höhe:",IDC_STATIC13,104,26,20,8
+    LTEXT           "Wert:",IDC_STATIC9,4,26,21,8
+    LTEXT           "X",IDC_STATIC6,44,16,8,8
+    LTEXT           "Y",IDC_STATIC7,94,16,8,8
+    LTEXT           "Z",IDC_STATIC8,144,16,8,8
+END
+
+IDD_EMITTER_PROPS3 DIALOGEX 0, 0, 197, 294
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Grundposition",IDC_STATIC,0,4,197,62
+    CONTROL         "",IDC_PARAMS1,"RandomParam",WS_TABSTOP,2,14,174,49,WS_EX_CONTROLPARENT
+    GROUPBOX        "Grundgeschwindigkeit",IDC_STATIC,0,69,197,102
+    CONTROL         "",IDC_PARAMS2,"RandomParam",WS_TABSTOP,2,79,174,49,WS_EX_CONTROLPARENT
+    LTEXT           "Innengeschwindigkeit:",IDC_STATIC,6,131,80,8
+    CONTROL         "",IDC_SPINNER11,"Spinner",WS_TABSTOP,105,130,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Einheiten/s",IDC_STATIC,155,132,40,8
+    CONTROL         "Beeinflusst durch Wind",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,157,85,10
+    GROUPBOX        "Beschleunigung",IDC_STATIC,0,172,197,74
+    LTEXT           "X",IDC_STATIC,22,181,8,8
+    LTEXT           "Y",IDC_STATIC,72,181,8,8
+    LTEXT           "Z",IDC_STATIC,123,181,8,8
+    CONTROL         "",IDC_SPINNER12,"Spinner",WS_TABSTOP,4,190,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER22,"Spinner",WS_TABSTOP,54,190,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER23,"Spinner",WS_TABSTOP,105,190,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Einheiten/s²",IDC_STATIC,155,192,40,8
+    LTEXT           "Gravitationsbeschleunigung:",IDC_STATIC,6,205,89,8
+    CONTROL         "",IDC_SPINNER4,"Spinner",WS_TABSTOP,105,203,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Einheiten/s²",IDC_STATIC,155,205,40,8
+    CONTROL         "Objektumgebungsbeschleunigung",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,231,120,10
+    GROUPBOX        "Bodeninteraction",IDC_STATIC,0,248,197,43
+    LTEXT           "Verhalten:",IDC_STATIC,6,260,32,8
+    COMBOBOX        IDC_COMBO2,73,258,80,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprungkraft:",IDC_STATIC,6,274,39,8
+    CONTROL         "",IDC_SPINNER21,"Spinner",WS_TABSTOP,105,273,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER18,"Spinner",WS_TABSTOP,115,143,37,12,WS_EX_CLIENTEDGE
+    LTEXT           "Parent Geschwindigkeit vererben:",IDC_STATIC16,6,144,109,8
+    LTEXT           "%",IDC_STATIC,155,145,8,8
+    LTEXT           "Innengeschwindigkeit:",IDC_STATIC,6,218,80,8
+    CONTROL         "",IDC_SPINNER9,"Spinner",WS_TABSTOP,105,216,47,12,WS_EX_CLIENTEDGE
+    LTEXT           "Einheiten/s²",IDC_STATIC,155,218,40,8
+END
+
+IDD_EMITTER_PROPS2 DIALOGEX 0, 0, 197, 294
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Ausläufer",-1,0,126,197,37
+    GROUPBOX        "Rotation",-1,0,165,197,46
+    GROUPBOX        "Rendering",-1,0,213,197,59
+    GROUPBOX        "Texturen",-1,0,4,197,67
+    GROUPBOX        "Zufällige Farbauswahl",-1,0,74,197,50
+    EDITTEXT        IDC_EDIT2,56,14,122,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON1,180,14,14,12,BS_FLAT | NOT WS_TABSTOP
+    EDITTEXT        IDC_EDIT3,56,27,122,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON2,180,27,14,12,BS_FLAT | NOT WS_TABSTOP
+    CONTROL         "",IDC_SPINNER2,"Spinner",WS_TABSTOP,140,41,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER13,"Spinner",WS_TABSTOP,140,55,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER19,"Spinner",WS_TABSTOP,10,94,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER24,"Spinner",WS_TABSTOP,53,94,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER25,"Spinner",WS_TABSTOP,97,94,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER26,"Spinner",WS_TABSTOP,140,94,38,12,WS_EX_CLIENTEDGE
+    CONTROL         "Graustufen",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,110,47,10
+    CONTROL         "Hat Ausläufer",IDC_CHECK12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,136,60,10
+    CONTROL         "",IDC_SPINNER34,"Spinner",WS_TABSTOP,98,147,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "Zufällige Rotationsrichtung",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,176,99,10
+    CONTROL         "Feste Zufallsrotation:",IDC_CHECK15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,186,89,10
+    CONTROL         "",IDC_SPINNER16,"Spinner",WS_DISABLED | WS_TABSTOP,18,196,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "Immer zur Kamera zeigen",IDC_CHECK16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,224,100,10
+    CONTROL         "Hitzepartikel",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,234,57,10
+    CONTROL         "Kein Tiefe-Test",IDC_CHECK14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,244,60,10
+    COMBOBOX        IDC_COMBO3,68,255,78,61,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Farb Textur:",-1,6,16,46,8
+    LTEXT           "Bump Textur:",-1,6,29,47,8
+    LTEXT           "Texturelemente:",-1,6,43,60,8
+    LTEXT           "Blenden Modus:",-1,8,257,60,8
+    LTEXT           "Minimal Größe:",-1,6,57,48,8
+    LTEXT           "Ausläuferlänge:",-1,18,148,60,8
+    LTEXT           "%",-1,180,57,8,8
+    LTEXT           "°",-1,57,198,8,8
+    LTEXT           "%",-1,180,96,8,8
+    LTEXT           "Rot",-1,23,84,14,8
+    LTEXT           "Grün",-1,66,84,20,8
+    LTEXT           "Blau",-1,110,84,14,8
+    LTEXT           "Alpha",-1,150,84,19,8
+    LTEXT           "x",-1,148,149,8,8
+    CONTROL         "",IDC_SPINNER17,"Spinner",WS_DISABLED | WS_TABSTOP,73,196,37,12,WS_EX_CLIENTEDGE
+    LTEXT           "°",-1,113,198,8,8
+    LTEXT           "±",-1,64,198,8,8
+END
+
+IDD_EMITTER_PROPS1 DIALOGEX 0, 0, 197, 294
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,33,0,161,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPINNER1,"Spinner",WS_TABSTOP,106,25,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER28,"Spinner",WS_TABSTOP,106,38,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER27,"Spinner",WS_TABSTOP,106,51,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "Stöße",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,5,81,36,10
+    CONTROL         "",IDC_SPINNER6,"Spinner",WS_TABSTOP,116,91,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER3,"Spinner",WS_TABSTOP,106,104,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER10,"Spinner",WS_TABSTOP,116,117,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "Durchgehender Strom",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,5,132,85,10
+    CONTROL         "",IDC_SPINNER7,"Spinner",WS_TABSTOP,116,142,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "Wetterpartikel",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,5,157,69,10
+    CONTROL         "",IDC_SPINNER15,"Spinner",WS_DISABLED | WS_TABSTOP,116,168,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER35,"Spinner",WS_TABSTOP,106,181,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER31,"Spinner",WS_TABSTOP,106,194,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER5,"Spinner",WS_TABSTOP,106,208,47,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER14,"Spinner",WS_TABSTOP,116,221,37,12,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPINNER8,"Spinner",WS_DISABLED | WS_TABSTOP,106,275,47,12,WS_EX_CLIENTEDGE
+    GROUPBOX        "Emitter Timing",IDC_STATIC,0,15,197,53
+    GROUPBOX        "Generation",IDC_STATIC,0,70,197,167
+    GROUPBOX        "Verbindung",IDC_STATIC,0,238,197,53
+    LTEXT           "Sekunden",IDC_STATIC,155,27,31,8
+    LTEXT           "Sekunden",IDC_STATIC,155,40,31,8
+    LTEXT           "Sekunden",IDC_STATIC,155,53,31,8
+    LTEXT           "Erzeugungsverzögerung:",IDC_STATIC,5,27,80,8
+    LTEXT           "Zeit überspringen:",IDC_STATIC,5,40,70,8
+    LTEXT           "Einfrierungszeit:",IDC_STATIC,5,53,70,8
+    LTEXT           "Stöße:",IDC_STATIC10,17,93,24,8
+    LTEXT           "Stößverzögerung:",IDC_STATIC11,17,106,65,8
+    LTEXT           "Sekunden",IDC_STATIC,155,106,31,8
+    LTEXT           "Partikel/Sekunde:",IDC_STATIC13,17,144,56,8
+    LTEXT           "Maximale Lebensdauer:",IDC_STATIC,5,210,90,8
+    LTEXT           "Sekunden",IDC_STATIC,155,210,31,8
+    LTEXT           "Würfelgröße:",IDC_STATIC17,17,197,40,8
+    LTEXT           "Entfernung zur Kamera:",IDC_STATIC18,17,183,78,8
+    LTEXT           "Partikel/Stöße:",IDC_STATIC19,17,119,50,8
+    LTEXT           "Minimale Lebensdauer:",IDC_STATIC,5,223,90,8
+    LTEXT           "%",IDC_STATIC,155,223,8,8
+    LTEXT           "Einheiten",IDC_STATIC,155,183,31,8
+    LTEXT           "Einheiten",IDC_STATIC,155,196,31,8
+    LTEXT           "Name:",IDC_STATIC,5,3,22,8
+    LTEXT           "Abstand übermitteln:",IDC_STATIC25,6,277,70,8
+    LTEXT           "Einheiten",IDC_STATIC,155,277,31,8
+    LTEXT           "Partikel:",IDC_STATIC27,17,170,30,8
+    CONTROL         "Partikel mit Instanz verlinken",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,250,104,10
+    COMBOBOX        IDC_COMBO1,72,261,82,61,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Modus übermitteln:",IDC_STATIC,6,263,63,8
+END
+
+IDD_EMITTER_LIST DIALOGEX 0, 0, 217, 171
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TREE1,"SysTreeView32",TVS_HASLINES | TVS_EDITLABELS | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,0,0,217,157,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_TOOLBAR1,"ToolbarWindow32",WS_TABSTOP | 0x94c,0,157,217,14
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 436, 207
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,191,184,50,14
+    LTEXT           "Particle Editor %d.%d",IDC_VERSION,7,7,137,8
+    LTEXT           "Build date: %hs",IDC_BUILDDATE,7,16,137,8
+    LTEXT           "Copyright (c) 2008 Mike Lankamp",IDC_STATIC,7,25,137,8
+    LTEXT           "<disclaimer>",IDC_DISCLAIMER,7,136,422,42
+    LTEXT           "<copyright>",IDC_EXPAT_COPYRIGHT,16,53,406,84
+    GROUPBOX        "Expat License",IDC_STATIC,7,41,422,89
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_RANDOM_PARAMETERS DLGINIT
+BEGIN
+    IDC_COMBO1, 0x403, 4, 0
+0x6122, 0x0022, 
+    IDC_COMBO1, 0x403, 4, 0
+0x6222, 0x0022, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_NEW_EMITTER_MENU MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "Neuen &Root Emitter",         ID_NEW_EMITTER_ROOT
+        MENUITEM "Neuen Child Emitter (&Lifetime)", ID_NEW_EMITTER_LIFETIME
+        MENUITEM "Neuen Child Emitter (on &Death)", ID_NEW_EMITTER_DEATH
+    END
+END
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "&Datei"
+    BEGIN
+        MENUITEM "&Neu\tStrg+N",                ID_FILE_NEW
+        MENUITEM "&Öffnen\tStrg+O",             ID_FILE_OPEN
+        MENUITEM "&Speichern\tStrg+S",          ID_FILE_SAVE
+        MENUITEM "Speichern &als",              ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Ende",                       ID_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Ausschneiden\tStrg+X",       ID_EDIT_CUT
+        MENUITEM "&Kopieren\tStrg+C",           ID_EDIT_COPY
+        MENUITEM "E&infügen\tStrg+V",           ID_EDIT_PASTE
+        MENUITEM "&Löschen\tEntf",              ID_EDIT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "Ver&ändere Partikelsystem",   ID_EDIT_RESCALE
+        MENUITEM SEPARATOR
+        MENUITEM "&Lösche alle Partikel\tStrg+Entf", ID_EDIT_CLEARALLPARTICLES
+    END
+    POPUP "E&mitters"
+    BEGIN
+        POPUP "&Neuen Emitter"
+        BEGIN
+            MENUITEM "&Root Emitter",               ID_NEW_EMITTER_ROOT
+            MENUITEM "Child Emitter (&Lebensdauer)", ID_NEW_EMITTER_LIFETIME
+            MENUITEM "Child Emitter (bei &Beendigung)", ID_NEW_EMITTER_DEATH
+        END
+        MENUITEM "Emitter &Umbenennen\tF2",     ID_EMITTER_RENAME
+        MENUITEM "Ver&ändere Emitter",          ID_EMITTER_RESCALE
+        MENUITEM "Emitter &Sichtbarkeit",       ID_TOGGLE_EMITTER_VISIBILITY
+        MENUITEM SEPARATOR
+        MENUITEM "Alle Emitter &anzeigen",      ID_SHOW_ALL_EMITTERS
+        MENUITEM "Alle Emitter &verbergen",     ID_HIDE_ALL_EMITTERS
+    END
+    POPUP "&Ansicht"
+    BEGIN
+        MENUITEM "Zeige &Boden\tStrg+G",        ID_VIEW_SHOWGROUND
+        MENUITEM "Teste &Hitze\tStrg+H",        ID_VIEW_DEBUGHEAT
+        MENUITEM SEPARATOR
+        MENUITEM "&Kamera zurücksetzen\tStrg+Pos 1", ID_VIEW_RESETCAMERA
+    END
+    POPUP "&Hilfe"
+    BEGIN
+        MENUITEM "&Über",                       ID_HELP_ABOUT
+    END
+END
+
+IDR_EMITTER_CONTEXT_MENU MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "Neu &Root Emitter",           ID_NEW_EMITTER_ROOT
+        MENUITEM "Neu Child Emitter (&Lebensdauer)", ID_NEW_EMITTER_LIFETIME
+        MENUITEM "Neu Child Emitter (bei &Beendigung)", ID_NEW_EMITTER_DEATH
+        MENUITEM SEPARATOR
+        MENUITEM "Ausschneiden",                ID_EDIT_CUT
+        MENUITEM "&Kopieren",                   ID_EDIT_COPY
+        MENUITEM "&Einfügen",                   ID_EDIT_PASTE
+        POPUP "Einfügen als"
+        BEGIN
+            MENUITEM "Child Emitter (&Lebensdauer)", ID_PASTEAS_LIFETIME
+            MENUITEM "Child Emitter (bei &Beendigung)", ID_PASTEAS_DEATH
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Umbenennen",                 ID_EMITTER_RENAME
+        MENUITEM "Größenänderung",              ID_EMITTER_RESCALE
+        MENUITEM SEPARATOR
+        MENUITEM "Sichtbarkeit einstellen",     ID_TOGGLE_EMITTER_VISIBILITY
+        MENUITEM SEPARATOR
+        MENUITEM "Löschen",                     ID_EDIT_DELETE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_RESCALE_SYSTEM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_RESCALE_EMITTER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 169
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_RANDOM_PARAMETERS, DIALOG
+    BEGIN
+        RIGHTMARGIN, 175
+        BOTTOMMARGIN, 49
+    END
+
+    IDD_EMITTER_PROPS3, DIALOG
+    BEGIN
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 291
+    END
+
+    IDD_EMITTER_PROPS2, DIALOG
+    BEGIN
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 291
+    END
+
+    IDD_EMITTER_PROPS1, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 291
+    END
+
+    IDD_EMITTER_LIST, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 164
+    END
+
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 87
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ERROR_FILE_READ     "Datei kann nicht gelesen werden"
+    IDS_ERROR_FILE_FIND     "Datei kann nicht gefunden werden:\n%ls"
+    IDS_ERROR_FILE_WRITE    "Datei kann nicht geschieben werden"
+    IDS_ERROR_FILE_CORRUPT  "Korrupte Datei"
+    IDS_ERROR_FILE_FORMAT   "Dies ist keine Partikel Datei"
+    IDS_ERROR_XML_PARSER_CREATE "XML Parser kann nicht erstellt werden"
+    IDS_ERROR_XML           "%ls in Zeile %d"
+    IDS_ERROR_UI_INITIALIZATION "UI kann nicht initialisiert werden"
+    IDS_QUERY_DATA_PATH     "Bitte den Star Wars Empire at War oder den Forces of Corruption Data Ordner auswählen."
+    IDS_STATUS_MOUSE        "Maus: (%.2f, %.2f, %.2f)"
+    IDS_TOOLTIP_FILE_NEW    "Neues Partikelsystem"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TOOLTIP_FILE_OPEN   "Partikelsystem öffnen"
+    IDS_TOOLTIP_FILE_SAVE   "Partikelsystem speichern"
+    IDS_TOOLTIP_TOGGLE_GROUND "Boden feststellen"
+    IDS_TOOLTIP_DEBUG_HEAT  "Hitze testen"
+    IDS_LABEL_BACKGROUND    "Hintergrund:"
+    IDS_LABEL_LEAVE_PARTICLES "Partikel nach Instanzende bestehen lassen"
+    IDS_LABEL_TRACK_RED     "Rot"
+    IDS_LABEL_TRACK_GREEN   "Grün"
+    IDS_LABEL_TRACK_BLUE    "Blau"
+    IDS_LABEL_TRACK_ALPHA   "Alpha"
+    IDS_LABEL_TRACK_SCALE   "Größe"
+    IDS_LABEL_TRACK_INDEX   "Index"
+    IDS_LABEL_TRACK_RPS     "Rotationsgeschwindigkeit"
+    IDS_STATUS_SHIFT_TO_SPAWN "Drücke UMSCHALT um eine Instanz zu starten"
+    IDS_STATUS_INSTANCES    "%d Instanzen (%d emitters)"
+    IDS_STATUS_PARTICLES    "%d Partikel"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_STATUS_FPS          "%d fps"
+    IDS_QUERY_SAVE_CHANGES  "Das Partikelsystem wurde verändert. Änderungen speichern?"
+    IDS_WARNING             "Warnung"
+    IDS_ERROR_FILE_SAVE     "Datei kann nicht gespeichert werden:\n%ls"
+    IDS_FILES_ALO           "Partikel Datei"
+    IDS_FILES_ALL           "Alle Dateien"
+    IDS_ERROR_FILE_OPEN     "Datei kann nicht geöffnet werden:\n%ls"
+    IDS_TITLE_NEW_FILE      "Neues Partikelsystem"
+    IDS_ERROR_FILE_CREATE   "Datei kann nicht erstellt werden:\n%ls"
+    IDS_ERROR_RENDERER_RESET "Renderfenster kann nicht zurückgesetzt werden"
+    IDS_LABEL_TRACK_NONE    "(Keine)"
+    IDS_TOOLTIP_KEYS_SELECT "Keys auswählen"
+    IDS_TOOLTIP_KEYS_INSERT "Keys einfügen"
+    IDS_TOOLTIP_KEYS_DELETE "Keys löschen"
+    IDS_TOOLTIP_INTERPOLATE_LINEAR "Linear Interpolation"
+    IDS_TOOLTIP_INTERPOLATE_SMOOTH "Feinheits Interpolation"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TOOLTIP_INTERPOLATE_STEP "Stufen Interpolation"
+    IDS_PROPPAGE_BASIC      "Basis"
+    IDS_PROPPAGE_APPEARANCE "Aussehen"
+    IDS_PROPPAGE_PHYSICS    "Physik"
+    IDS_BLEND_NONE          "Keine"
+    IDS_BLEND_ADDITIVE      "Additive"
+    IDS_BLEND_TRANSPARENT   "Transparent"
+    IDS_BLEND_DEPTH_ADDITIVE "Tiefe: Additive"
+    IDS_BLEND_DEPTH_TRANSPARENT "Tiefe: Transparent"
+    IDS_BLEND_DEPTH_INVERSE "Depth: Inverse"
+    IDS_BLEND_DIFFUSE_TRANSPARENT "Unschärfe Transparent"
+    IDS_BLEND_BUMPMAP       "Bumpmap"
+    IDS_BLEND_DECAL_BUMPMAP "Siebdruck Bumpmap"
+    IDS_GROUND_BEHAVIOR_NONE "Keine"
+    IDS_GROUND_BEHAVIOR_DISAPPEAR "Verschwinden"
+    IDS_GROUND_BEHAVIOR_BOUNCE "Sprungkraft"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_GROUND_BEHAVIOR_STICK "Stecken"
+    IDS_EMITMODE_DISABLED   "Ausgeschaltet"
+    IDS_EMITMODE_RANDOM_VERTEX "Zufalls: Vertex"
+    IDS_EMITMODE_RANDOM_MESH "Zufall: Mesh"
+    IDS_EMITMODE_EVERY_VERTEX "Jedes Vertex"
+    IDS_BLEND_INVERSE       "Invertieren"
+    IDS_TOOLTIP_EMITTER_NEW "Neuer Emitter"
+    IDS_TOOLTIP_EMITTER_DELETE "Emitter Löschen"
+    IDS_TOOLTIP_EMITTER_TOGGLE "Emitter Sichtbarkeit"
+    IDS_TOOLTIP_EMITTERS_SHOW "Alle Emitter zeigen"
+    IDS_TOOLTIP_EMITTERS_HIDE "Alle Emitter verbergen"
+    IDS_PARAMTYPE_EXACT     "Exakt"
+    IDS_PARAMTYPE_BOX       "Zufall: Box"
+    IDS_PARAMTYPE_SPHERE    "Zufall: Kugel"
+    IDS_PARAMTYPE_CUBE      "Zufall: Würfel"
+    IDS_PARAMTYPE_CYLINDER  "Zufall: Zylinder"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERROR_EMITTER_COPY  "Ein Fehler ist beim kopieren des Emitters aufgetreten"
+    IDS_ERROR_EMITTER_PASTE "Ein Fehler ist beim einfügen des Emitters aufgetreten"
+    IDS_EXPAT_COPYRIGHT     "Copyright (c) 1998, 1999, 2000 Thai Open Source Software Center Ltd and Clark Cooper. Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006 Expat maintainers.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software."
+    IDS_DISCLAIMER          "THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+END
+
+#endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Dutch (Netherlands) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NLD)
+#ifdef _WIN32
+LANGUAGE LANG_DUTCH, SUBLANG_DUTCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "Resources\\resource.de.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Dutch (Netherlands) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

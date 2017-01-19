@@ -1,0 +1,172 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "Resources\resource."
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_MISSING             BITMAP                  "resources/missing.bmp"
+IDR_TOOLBAR1            BITMAP                  "resources/toolbar1.bmp"
+IDB_GROUND              BITMAP                  "Resources\\dirt.bmp"
+IDB_EMITTER_LIST        BITMAP                  "Resources\\emitter_list.bmp"
+IDR_EMITTER_TOOLBAR     BITMAP                  "resources/toolbar2.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_LOGO                ICON                    "resources/logo.ico"
+IDI_EDITOR_SELECT       ICON                    "resources/curve_mode_select.ico"
+IDI_EDITOR_INSERT       ICON                    "resources/curve_mode_insert.ico"
+IDI_EDITOR_LINEAR       ICON                    "resources/curve_interpolate_linear.ico"
+IDI_EDITOR_STEP         ICON                    "resources/curve_interpolate_step.ico"
+IDI_EDITOR_SMOOTH       ICON                    "resources/curve_interpolate_smooth.ico"
+IDI_EDITOR_DELETE       ICON                    "resources/curve_key_delete.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_TOOLBAR1 TOOLBAR  16, 16
+BEGIN
+    BUTTON      ID_BUTTON40016
+    BUTTON      ID_BUTTON40017
+    BUTTON      ID_BUTTON40018
+    BUTTON      ID_BUTTON40019
+    BUTTON      ID_BUTTON40022
+END
+
+IDR_EMITTER_TOOLBAR TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON40026
+    BUTTON      ID_BUTTON40027
+    BUTTON      ID_BUTTON40028
+    BUTTON      ID_BUTTON40077
+    BUTTON      ID_BUTTON40081
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RCDATA
+//
+
+IDS_SCENEHEAT           RCDATA                  "Resources\\SceneHeat.fx"
+IDR_DEFAULT_SHADER      RCDATA                  "resources\\DefaultShader.fx"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,5,0,0
+ PRODUCTVERSION 1,5,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x5L
+#else
+ FILEFLAGS 0x4L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "CompanyName", "Mike Lankamp"
+            VALUE "FileDescription", "Particle Editor"
+            VALUE "FileVersion", "1, 5, 0, 0"
+            VALUE "InternalName", "Particle Editor"
+            VALUE "LegalCopyright", "Copyright (C) 2009 Mike Lankamp"
+            VALUE "OriginalFilename", "ParticleEditor.exe"
+            VALUE "ProductName", "Particle Editor"
+            VALUE "ProductVersion", "1, 5, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "Resources\\resource.\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
