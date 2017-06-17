@@ -199,7 +199,7 @@ static INT_PTR WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 			control = (EmitterListControl*)lParam;
 			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
-            HINSTANCE hInstance = (HINSTANCE)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+            HINSTANCE hInstance = (HINSTANCE)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_HINSTANCE);
             
             //
             // Initialize treeview
@@ -436,9 +436,9 @@ static INT_PTR WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                 {
                     // Workaround for bug in Knowledge Base item Q130691; subclass the edit control
                     HWND hEdit = TreeView_GetEditControl(control->hTree);
-                    WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr(hEdit, GWLP_USERDATA);
+                    WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr(hEdit, GWLP_WNDPROC);
                     SetProp(hEdit, L"Old_WindowProc", (HANDLE)wndProc);
-                    SetWindowLongPtr(hEdit, GWLP_USERDATA, (LONG)(LONG_PTR)LabelEditProc);
+                    SetWindowLongPtr(hEdit, GWLP_WNDPROC, (LONG)(LONG_PTR)LabelEditProc);
                     break;
                 }
 
