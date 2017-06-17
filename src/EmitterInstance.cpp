@@ -799,11 +799,6 @@ int EmitterInstance::Update(TimeF currentTime)
 				m_particleIndex[i]->m_indicesIndex = i;
 			}
 		}
-		else if (DoneSpawning())
-		{
-			// Clean up the emitter
-			delete this;
-		}
 	}
     return numParticles;
 }
@@ -811,11 +806,6 @@ int EmitterInstance::Update(TimeF currentTime)
 void EmitterInstance::StopSpawning()
 {
     m_doneSpawning = true;
-    if (m_primitives.empty())
-    {
-        // Clean up the emitter
-        delete this;
-    }
 }
 
 void EmitterInstance::Render(IDirect3DDevice9* pDevice)
@@ -897,7 +887,21 @@ bool EmitterInstance::IsFrozen(TimeF currentTime) const
 	return m_freezeTime > 0.0f && currentTime >= m_freezeTime;
 }
 
-EmitterInstance::EmitterInstance(EmitterInstance* &list, TimeF currentTime, ParticleSystemInstance& system, Engine& engine, ParticleSystem::Emitter& emitter, Object3D* parent, int* numParticles)
+int EmitterInstance::Kill()
+{
+	// Stop spawning
+	m_doneSpawning = true;
+
+	// And destroy any live particles
+	int numParticles = -static_cast<int>(m_primitives.size());
+	m_primitives.clear();
+	m_particleIndex.clear();
+
+	m_particleList = nullptr;
+	return numParticles;
+}
+
+EmitterInstance::EmitterInstance(TimeF currentTime, ParticleSystemInstance& system, Engine& engine, ParticleSystem::Emitter& emitter, Object3D* parent, int* numParticles)
 	: Object3D(parent), m_engine(engine), m_system(system), m_emitter(emitter)
 {
 	m_doneSpawning        = false;
@@ -945,15 +949,6 @@ EmitterInstance::EmitterInstance(EmitterInstance* &list, TimeF currentTime, Part
 	    }
     }
 
-    // Link this emitter in the list
-    m_next = list;
-    m_prev = &list;
-    if (m_next != NULL)
-    {
-        m_next->m_prev = &m_next;
-    }
-    list = this;
-
     m_emitter.registerEmitterInstance(this);
 }
 
@@ -974,13 +969,5 @@ EmitterInstance::~EmitterInstance()
         parent->m_childEmitter = NULL;
     }
 
-    // Unlink from list
-    *m_prev = m_next;
-    if (m_next != NULL)
-    {
-        m_next->m_prev = m_prev;
-    }
-
     m_emitter.unregisterEmitterInstance(this);
-    m_system.OnEmitterDestroyed((int)m_primitives.size());
 }

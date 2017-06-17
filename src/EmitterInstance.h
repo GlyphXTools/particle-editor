@@ -7,7 +7,7 @@ using namespace std;
 static const int NUM_VERTICES_PER_PARTICLE  = 4;
 static const int NUM_TRIANGLES_PER_PARTICLE = 2;
 
-class EmitterInstance : Object3D
+class EmitterInstance : public Object3D
 {
 public:
 	#pragma pack(1)
@@ -29,9 +29,6 @@ public:
 private:
 	struct Particle;
     class  ParticleBlock;
-
-    EmitterInstance*  m_next;
-    EmitterInstance** m_prev;
 
 	IDirect3DTexture9*		 m_pColorTexture;
 	IDirect3DTexture9*		 m_pNormalTexture;
@@ -79,8 +76,10 @@ private:
 	TimeF GetSpawnDelay() const   { return m_spawnDelay;   }	// The delta time when the next spawn round should occur
 
 public:
-    EmitterInstance* GetNext() { return m_next; }
+	// This instance is dead when there are no more particles and no more coming either
+	bool  IsDead() const { return DoneSpawning() && m_primitives.empty(); }
 
+	int   Kill();
 	void  onParticleSystemChanged(const Engine& engine, int track);
 	int   Update(TimeF currentTime);
 	void  Render(IDirect3DDevice9* pDevice);
@@ -88,7 +87,7 @@ public:
 	bool  IsHeatEmitter() const   { return !m_engine.GetHeatDebug() && m_emitter.isHeatParticle; }
 	bool  IsRoot()        const   { return m_emitter.parent == NULL; }
 
-	EmitterInstance(EmitterInstance* &list, TimeF currentTime, ParticleSystemInstance& system, Engine& engine, ParticleSystem::Emitter& emitter, Object3D* parent, int* numParticles);
+	EmitterInstance(TimeF currentTime, ParticleSystemInstance& system, Engine& engine, ParticleSystem::Emitter& emitter, Object3D* parent, int* numParticles);
 	~EmitterInstance();
 };
 

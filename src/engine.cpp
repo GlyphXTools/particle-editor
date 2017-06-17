@@ -36,11 +36,9 @@ D3DVERTEXELEMENT9 Engine::ParticleElements[] = {
 
 ParticleSystemInstance* Engine::SpawnParticleSystem(const ParticleSystem& system, Object3D* parent)
 {
-    int count = 0;
-	ParticleSystemInstance* instance = new ParticleSystemInstance(*this, system, parent);
-    m_instances.push_back(instance);
-    m_numParticles += count;
-	return instance;
+	auto instance = std::make_unique<ParticleSystemInstance>(*this, system, parent);
+    m_instances.push_back(std::move(instance));
+	return m_instances.back().get();
 }
 
 void Engine::DetachParticleSystem(ParticleSystemInstance* instance)
@@ -54,34 +52,19 @@ void Engine::KillParticleSystem(ParticleSystemInstance* instance)
 	{
 		// Leave particles to finish; just disable it
 		instance->StopSpawning();
-        instance->Detach();
 	}
 	else
 	{
     	// Don't leave particles, kill the thing now
-        delete instance;
+		m_numParticles += instance->Kill();
 	}
-}
 
-void Engine::OnInstanceDestroyed(ParticleSystemInstance* instance)
-{
-    // Remove the intance from the list
-    for (vector<ParticleSystemInstance*>::iterator p = m_instances.begin(); p != m_instances.end(); p++)
-    {
-        if (*p == instance)
-        {
-            m_instances.erase(p);
-            break;
-        }
-    }
+	instance->Detach();
 }
 
 void Engine::Clear()
 {
-    while (!m_instances.empty())
-    {
-        delete m_instances[0];
-	}
+	m_instances.clear();
     m_numParticles = 0;
     m_numEmitters  = 0;
 }
@@ -91,22 +74,20 @@ void Engine::Update()
 	TimeF currentTime = GetTimeF();
 
     // Update existing instances
-    for (size_t i = 0; i < m_instances.size(); i++)
+    for (auto it = m_instances.begin(); it != m_instances.end();)
     {
-        ParticleSystemInstance* instance = m_instances[i];
-        m_numParticles += instance->Update(currentTime);
+        m_numParticles += (*it)->Update(currentTime);
 
-        // The update could've killed the particle system, check for that
-        if (i == m_instances.size() || m_instances[i] != instance)
-        {
-            i--;
-        }
+		// Check if the instance is dead and nobody's referring to it anymore
+		if ((*it)->IsDead() && (*it)->Detached())
+		{
+			it = m_instances.erase(it);
+		}
+		else
+		{
+			++it;
+		}
     }
-}
-
-static bool ParticleSystemCompare(const ParticleSystemInstance* p1, const ParticleSystemInstance* p2)
-{
-    return p1->GetZDistance() < p2->GetZDistance();
 }
 
 bool Engine::Render()
@@ -161,7 +142,9 @@ bool Engine::Render()
     // Sort the particle systems on distance from camera
     // Negative Z is further away, thus drawn first.
     // Therefore we need a normal ascending sort.
-    sort(m_instances.begin(), m_instances.end(), ParticleSystemCompare);
+	sort(m_instances.begin(), m_instances.end(), [](const auto& p1, const auto& p2) {
+		return p1->GetZDistance() < p2->GetZDistance();
+	});
 	
 	m_pDevice->BeginScene();
 
@@ -202,9 +185,9 @@ bool Engine::Render()
 		m_pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ground, sizeof(EmitterInstance::Vertex));
 	}
 
-    for (vector<ParticleSystemInstance*>::iterator p = m_instances.begin(); p != m_instances.end(); p++)
+    for (auto& instance : m_instances)
     {
-        (*p)->RenderNormal(m_pDevice);
+        instance->RenderNormal(m_pDevice);
 	}
     m_pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 
@@ -215,9 +198,9 @@ bool Engine::Render()
 	SAFE_RELEASE(pDistortSurface);
 
 	m_pDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(129,128,255), 1.0f, 0);
-    for (vector<ParticleSystemInstance*>::iterator p = m_instances.begin(); p != m_instances.end(); p++)
+	for (auto& instance : m_instances)
     {
-        (*p)->RenderHeat(m_pDevice);
+        instance->RenderHeat(m_pDevice);
 	}
 
 	// Now render to the screen
@@ -263,9 +246,9 @@ IDirect3DTexture9* Engine::GetTexture(const string& name) const
 
 void Engine::OnParticleSystemChanged(int track)
 {
-    for (vector<ParticleSystemInstance*>::iterator p = m_instances.begin(); p != m_instances.end(); p++)
+	for (auto& instance : m_instances)
     {
-		(*p)->onParticleSystemChanged(*this, track);
+		instance->onParticleSystemChanged(*this, track);
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "managers.h"
 #include "ParticleSystem.h"
 #include "utils.h"
+#include <memory>
 
 class Object3D
 {
@@ -114,9 +115,8 @@ public:
     int GetNumParticles() const { return m_numParticles; }
     int GetNumInstances() const { return (int)m_instances.size(); }
 
-    void OnInstanceDestroyed(ParticleSystemInstance* instance);
     void OnEmitterCreated(int numParticles)   { m_numEmitters++; m_numParticles += numParticles; }
-    void OnEmitterDestroyed(int numParticles) { m_numEmitters--; m_numParticles -= numParticles; }
+    void OnEmitterDestroyed() { m_numEmitters--; }
 
 	void SetBackground(COLORREF color);
 	void SetLight(LightType which, const Light& light);
@@ -141,7 +141,7 @@ private:
 	//
 
 	// Particle management
-    std::vector<ParticleSystemInstance*> m_instances;
+    std::vector<std::unique_ptr<ParticleSystemInstance>> m_instances;
     int m_numParticles;
     int m_numEmitters;
 

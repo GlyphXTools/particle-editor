@@ -4,7 +4,7 @@ using namespace std;
 
 void ParticleSystemInstance::onParticleSystemChanged(const Engine& engine, int track)
 {
-    for (EmitterInstance* emitter = m_emitters; emitter != NULL; emitter = emitter->GetNext())
+    for (auto& emitter : m_emitters)
 	{
         emitter->onParticleSystemChanged(engine, track);
 	}
@@ -20,19 +20,27 @@ int ParticleSystemInstance::Update(TimeF currentTime)
 
     // Update emitters
     int nParticles = 0;
-    EmitterInstance* emitter = m_emitters;
-    while (emitter != NULL)
+    for (auto it = m_emitters.begin(); it != m_emitters.end();)
 	{
-        EmitterInstance* next = emitter->GetNext();
-		nParticles += emitter->Update(currentTime);
-        emitter = next;
+		nParticles += (*it)->Update(currentTime);
+
+		// If it's dead and no longer needed (either detached, or we're its parent), then remove it
+		if ((*it)->IsDead() && ((*it)->Detached() || (*it)->GetParent() == this))
+		{
+			it = m_emitters.erase(it);
+			m_engine.OnEmitterDestroyed();
+		}
+		else
+		{
+			++it;
+		}
 	}
     return nParticles;
 }
 
 void ParticleSystemInstance::RenderNormal(IDirect3DDevice9* pDevice)
 {
-    for (EmitterInstance* emitter = m_emitters; emitter != NULL; emitter = emitter->GetNext())
+    for (auto& emitter : m_emitters)
 	{
         if (!emitter->IsHeatEmitter())
         {
@@ -43,7 +51,7 @@ void ParticleSystemInstance::RenderNormal(IDirect3DDevice9* pDevice)
 
 void ParticleSystemInstance::RenderHeat(IDirect3DDevice9* pDevice)
 {
-    for (EmitterInstance* emitter = m_emitters; emitter != NULL; emitter = emitter->GetNext())
+    for (auto& emitter : m_emitters)
 	{
         if (emitter->IsHeatEmitter())
         {
@@ -59,51 +67,39 @@ void ParticleSystemInstance::SetPosition(const D3DXVECTOR3& position)
 
 void ParticleSystemInstance::StopSpawning()
 {
-    EmitterInstance* emitter = m_emitters;
-    while (emitter != NULL)
+	for (auto& emitter : m_emitters)
 	{
-        EmitterInstance* next = emitter->GetNext();
 		if (emitter->IsRoot())
 		{
 			emitter->StopSpawning();
 		}
-        emitter = next;
 	}
 }
 
-void ParticleSystemInstance::Detach()
+int ParticleSystemInstance::Kill()
 {
-    Object3D::Detach();
-    if (m_emitters == NULL && !m_deleting)
-    {
-        delete this;
-    }
-}
-
-void ParticleSystemInstance::OnEmitterDestroyed(int numParticles)
-{
-    m_engine.OnEmitterDestroyed(numParticles);
-    if (m_emitters == NULL && Detached() && !m_deleting)
-    {
-        delete this;
-    }
+	int numParticles = 0;
+	for (auto& emitter : m_emitters)
+	{
+		numParticles += emitter->Kill();
+	}
+	return numParticles;
 }
 
 EmitterInstance* ParticleSystemInstance::SpawnEmitter(TimeF currentTime, size_t idxEmitter, Object3D* parent)
 {
     int numParticles;
 	ParticleSystem::Emitter* emitter = m_system.getEmitters()[idxEmitter];
-    EmitterInstance* instance = new EmitterInstance(m_emitters, currentTime, *this, m_engine, *emitter, parent, &numParticles);
+    auto instance = std::make_unique<EmitterInstance>(currentTime, *this, m_engine, *emitter, parent, &numParticles);
+	m_emitters.push_back(std::move(instance));
     m_engine.OnEmitterCreated(numParticles);
-    return instance;
+	return m_emitters.back().get();
 }
 
 ParticleSystemInstance::ParticleSystemInstance(Engine& engine, const ParticleSystem& system, Object3D* parent)
 	: Object3D(parent), m_engine(engine), m_system(system)
 {		
 	TimeF now  = GetTimeF();
-    m_emitters = NULL;
-    m_deleting = false;
 
 	// Spawn all root emitters
 	const vector<ParticleSystem::Emitter*>& emitters = m_system.getEmitters();
@@ -111,19 +107,11 @@ ParticleSystemInstance::ParticleSystemInstance(Engine& engine, const ParticleSys
 	{
 		if (emitters[i]->parent == NULL)
 		{
-            EmitterInstance* emitter = SpawnEmitter(now, i, this);
+            SpawnEmitter(now, i, this);
 		}
 	}
 }
 
 ParticleSystemInstance::~ParticleSystemInstance()
 {
-    m_deleting = true;
-
- 	while (m_emitters != NULL)
-	{
-		delete m_emitters;
-	}
-
-    m_engine.OnInstanceDestroyed(this);
 }
