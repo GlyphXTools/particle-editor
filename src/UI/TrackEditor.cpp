@@ -32,15 +32,15 @@ static void RefreshInterplation(TrackControl* control)
     SendMessage(hToolbar, TB_CHECKBUTTON, 5, track->interpolation == ParticleSystem::Emitter::Track::IT_STEP);
 }
 
-BOOL CALLBACK TrackDialogProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK TrackDialogProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_INITDIALOG:
 		{
 			control = (TrackControl*)lParam;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
 			//
 			// Set spinner properties
@@ -352,7 +352,7 @@ BOOL CALLBACK TrackDialogProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 LRESULT CALLBACK TrackWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -367,7 +367,7 @@ LRESULT CALLBACK TrackWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 			control->hDialog  = CreateDialogParam(pcs->hInstance, MAKEINTRESOURCE(IDD_TRACK_EDITOR), hWnd, TrackDialogProc, (LPARAM)control);
 			ShowWindow(control->hDialog, SW_SHOW);
 
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 			break;
 		}
 
@@ -402,7 +402,7 @@ LRESULT CALLBACK TrackWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 void TrackEditor_SetTrack(HWND hWnd, ParticleSystem::Emitter::Track* trackContents, ParticleSystem::Emitter::Track** tracks)
 {
-	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	if (control != NULL)
 	{	
         HWND hCombo   = GetDlgItem(control->hDialog, IDC_COMBO1);
@@ -439,7 +439,7 @@ void TrackEditor_SetTrack(HWND hWnd, ParticleSystem::Emitter::Track* trackConten
 
 void TrackEditor_EnableTrack(HWND hWnd, bool enabled)
 {
-	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	TrackControl* control = (TrackControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	if (control != NULL && control->editable != enabled)
 	{
         HWND hEditor  = GetDlgItem(control->hDialog, IDC_EDITOR1);

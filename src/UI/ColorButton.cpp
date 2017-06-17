@@ -10,7 +10,7 @@ struct ColorButtonControl
 
 static ColorButtonControl* activeDialog = NULL;
 
-static UINT APIENTRY CustomHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+static UINT_PTR APIENTRY CustomHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	if (activeDialog != NULL)
 	{
@@ -47,7 +47,7 @@ static UINT APIENTRY CustomHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 
 static LRESULT CALLBACK ColorButtonWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -60,7 +60,7 @@ static LRESULT CALLBACK ColorButtonWindowProc(HWND hWnd, UINT uMsg, WPARAM wPara
 			control->msgColorOkString = RegisterWindowMessage(COLOROKSTRING);
 			control->hWnd  = hWnd;
 			control->color = RGB(0,0,0);
-			SetWindowLong(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 			break;
 		}
 
@@ -128,7 +128,7 @@ static LRESULT CALLBACK ColorButtonWindowProc(HWND hWnd, UINT uMsg, WPARAM wPara
 
 void ColorButton_SetColor(HWND hWnd, COLORREF color)
 {
-	ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->color = color;
@@ -138,7 +138,7 @@ void ColorButton_SetColor(HWND hWnd, COLORREF color)
 
 COLORREF ColorButton_GetColor(HWND hWnd)
 {
-	const ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	const ColorButtonControl* control = (ColorButtonControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		return control->color;

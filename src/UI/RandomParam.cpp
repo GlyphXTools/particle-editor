@@ -48,13 +48,13 @@ static void RandomParameters_ShowControls(HWND hWnd, int type)
 
 static INT_PTR CALLBACK RandomParamDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_INITDIALOG:
 		{
 			control = (RandomParamControl*)lParam;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
 			SPINNER_INFO si;
 			si.Mask        = SPIF_ALL;
@@ -166,14 +166,14 @@ static INT_PTR CALLBACK RandomParamDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, 
 
 static LRESULT CALLBACK RandomParamWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
 		{
 			control = new RandomParamControl;
 			control->group = NULL;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
 			CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
 			if ((control->hDialog = CreateDialogParam(pcs->hInstance, MAKEINTRESOURCE(IDD_RANDOM_PARAMETERS), hWnd, RandomParamDlgProc, (LPARAM)control)) == NULL)
@@ -211,7 +211,7 @@ static LRESULT CALLBACK RandomParamWindowProc(HWND hWnd, UINT uMsg, WPARAM wPara
 
 void RandomParam_SetGroup(HWND hWnd, ParticleSystem::Emitter::Group* group )
 {
-	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	RandomParamControl* control = (RandomParamControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	if (control != NULL)
 	{
 		HWND hDialog = control->hDialog;

@@ -109,7 +109,7 @@ unsigned long MemoryFile::write(const void* buffer, unsigned long size)
         char* temp = (char*)realloc(m_data, m_position + size);
         if (temp == NULL)
         {
-            throw bad_alloc("Bad allocation");
+            throw bad_alloc();
         }
         m_data = temp;
         m_size = m_position + size;

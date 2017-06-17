@@ -18,12 +18,12 @@ class XMLNode
 	friend static void checkEmpty(XMLNode* node);
 	friend class XMLTree;
 
-	typedef std::map<std::string,std::string> AttrMap;
+	typedef std::map<std::wstring,std::wstring> AttrMap;
 
-	std::string name;
-	XMLNode*    parent;
-	std::string data;
-	AttrMap     attributes;
+	std::wstring name;
+	XMLNode*     parent;
+	std::wstring  data;
+	AttrMap      attributes;
 
 
 	std::vector<XMLNode*> children;
@@ -33,21 +33,21 @@ class XMLNode
 	~XMLNode();
 
 public:
-	bool               isAnonymous() const    { return name == ""; }
-	const std::string& getData() const        { return data; }
-	const std::string& getName() const        { return name; }
-	const unsigned int getNumChildren() const { return (unsigned int)children.size(); }
-	const XMLNode*     getChild(int i) const  { return children[i]; }
+	bool                isAnonymous() const    { return name.empty(); }
+	const std::wstring& getData() const        { return data; }
+	const std::wstring& getName() const        { return name; }
+	const unsigned int  getNumChildren() const { return (unsigned int)children.size(); }
+	const XMLNode*      getChild(int i) const  { return children[i]; }
 	
-	const bool hasAttribute(std::string name) const
+	const bool hasAttribute(std::wstring name) const
 	{
 		return attributes.find(name) != attributes.end();
 	}
 
-	std::string getAttribute(std::string name) const
+	std::wstring getAttribute(std::wstring name) const
 	{
 		AttrMap::const_iterator p = attributes.find(name);
-		return (p == attributes.end()) ? "" : p->second;
+		return (p == attributes.end()) ? L"" : p->second;
 	}
 };
 

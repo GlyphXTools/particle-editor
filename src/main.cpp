@@ -939,14 +939,14 @@ static LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 {
     static int SIDEBAR_WIDTH = 310;
 
-	APPLICATION_INFO* info = (APPLICATION_INFO*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	APPLICATION_INFO* info = (APPLICATION_INFO*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
 		{
 			CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
 			info = (APPLICATION_INFO*)pcs->lpCreateParams;
-			SetWindowLong(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)info);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)info);
 
 			HFONT hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
 
@@ -1325,14 +1325,14 @@ static void GetCursorPos3D(Engine* engine, short x, short y, D3DXVECTOR3& positi
 
 static LRESULT CALLBACK RenderWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	APPLICATION_INFO* info = (APPLICATION_INFO*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	APPLICATION_INFO* info = (APPLICATION_INFO*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
 		{
 			CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
 			info = (APPLICATION_INFO*)pcs->lpCreateParams;
-			SetWindowLong(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)info);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)info);
 			break;
 		}
 

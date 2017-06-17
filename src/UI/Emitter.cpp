@@ -74,7 +74,7 @@ static void LoadTexture(HWND hWnd, string& texture)
 	memset(&ofn, 0, sizeof(OPENFILENAME));
 	ofn.lStructSize  = sizeof(OPENFILENAME);
 	ofn.hwndOwner    = hWnd;
-	ofn.hInstance    = (HINSTANCE)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_HINSTANCE);
+	ofn.hInstance    = (HINSTANCE)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_HINSTANCE);
 	ofn.lpstrFilter  = "Texture files (*.tga;*.dds)\0*.TGA;*.DDS\0All files (*.*)\0*.*\0\0";
 	ofn.nFilterIndex = 1;
 	ofn.lpstrFile    = filename;
@@ -171,15 +171,15 @@ static void EnableControls(EmitterPropsControl* control)
 	EnableWindow(GetDlgItem(hPage3, IDC_SPINNER21), !emitter->isWeatherParticle && emitter->groundBehavior == 2);
 }
 
-static BOOL WINAPI DlgEmitterPropsProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+static INT_PTR WINAPI DlgEmitterPropsProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_INITDIALOG:
 		{
 			control = (EmitterPropsControl*)lParam;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
 			SPINNER_INFO si;
 			si.Mask        = SPIF_ALL;
@@ -510,7 +510,7 @@ static EmitterPropsControl* CreateEmitterPropsControl(HWND hOwner, HINSTANCE hIn
 
 static LRESULT CALLBACK EmitterPropsWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -521,7 +521,7 @@ static LRESULT CALLBACK EmitterPropsWindowProc(HWND hWnd, UINT uMsg, WPARAM wPar
 			{
 				return FALSE;
 			}
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 			break;
 		}
 
@@ -600,7 +600,7 @@ bool EmitterProps_Initialize(HINSTANCE hInstance)
 
 void EmitterProps_SetEmitter(HWND hWnd, ParticleSystem::Emitter* emitter)
 {
-	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterPropsControl* control = (EmitterPropsControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->emitter = emitter;

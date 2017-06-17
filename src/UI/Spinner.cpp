@@ -84,7 +84,7 @@ static void Spinner_Redraw(HWND hWnd, SpinnerControl* control)
 
 static LRESULT CALLBACK SpinnerEditWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	
 	// Here we can trap certain message, otherwise sent to the edit control
 	switch (uMsg)
@@ -146,7 +146,7 @@ static LRESULT CALLBACK SpinnerEditWindowProc(HWND hWnd, UINT uMsg, WPARAM wPara
 
 static LRESULT CALLBACK SpinnerWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -175,10 +175,10 @@ static LRESULT CALLBACK SpinnerWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			}
 
 			// We hijack the edit control's message window because we need to trap certain messages.
-			control->EditWindowProc = (WNDPROC)(LONG_PTR)GetWindowLong(control->hEdit, GWL_WNDPROC);
-			SetWindowLongPtr(control->hEdit, GWL_USERDATA, (LONG)(LONG_PTR)control);
-			SetWindowLongPtr(control->hEdit, GWL_WNDPROC,  (LONG)(LONG_PTR)SpinnerEditWindowProc);
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			control->EditWindowProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr(control->hEdit, GWLP_WNDPROC);
+			SetWindowLongPtr(control->hEdit, GWLP_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(control->hEdit, GWLP_WNDPROC,  (LONG)(LONG_PTR)SpinnerEditWindowProc);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 			break;
 		}
 
@@ -331,7 +331,7 @@ static LRESULT CALLBACK SpinnerWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 void Spinner_SetInfo(HWND hWnd, const SPINNER_INFO* psi)
 {
-	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->info.IsFloat = psi->IsFloat;
@@ -359,7 +359,7 @@ void Spinner_SetInfo(HWND hWnd, const SPINNER_INFO* psi)
 
 void Spinner_GetInfo(HWND hWnd, SPINNER_INFO* psi)
 {
-	const SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	const SpinnerControl* control = (SpinnerControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	if (control != NULL)
 	{
 		psi->IsFloat = control->info.IsFloat;

@@ -16,17 +16,17 @@ class MegaFile
 		uint32_t nameIndex;
 	};
 
-	File* file;
+	IFile* file;
 	std::vector<FileInfo>      files;
 	std::vector<std::string>   filenames;
 
 public:
-	File*              getFile(std::string path) const;
-	File*              getFile(int index) const;
+	IFile*             getFile(std::string path) const;
+	IFile*             getFile(int index) const;
 	const std::string& getFilename(int index) const;
 	unsigned int       getNumFiles() const { return (unsigned int)files.size(); }
 
-	MegaFile(File* file);
+	MegaFile(IFile* file);
 	~MegaFile();
 };
 

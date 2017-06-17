@@ -31,15 +31,15 @@ XMLNode::~XMLNode()
 	}
 }
 
-static string trim(const string& source, const char* delims = " \t\r\n")
+static wstring trim(const wstring& source, const wchar_t* delims = L" \t\r\n")
 {
-	string result(source);
-	string::size_type index = result.find_last_not_of(delims);
-	if (index != string::npos)
+	wstring result(source);
+	wstring::size_type index = result.find_last_not_of(delims);
+	if (index != wstring::npos)
 		result.erase(index + 1);
 
 	index = result.find_first_not_of(delims);
-	if(index != string::npos) 
+	if(index != wstring::npos) 
 		result.erase(0, index);
 	else
 		result.erase();
@@ -52,7 +52,7 @@ static void checkEmpty(XMLNode* node)
 	{
 		XMLNode* child = node->children.back();
 		child->data = trim(child->data);
-		if (child->data == "" && child->name == "")
+		if (child->data.empty() && child->name.empty())
 		{
 			delete child;
 			node->children.erase( node->children.end() - 1 );
@@ -87,7 +87,7 @@ static void onEndElement(void* userData, const XML_Char *name)
 	{
 		// Post-process this node; if it contains a single anonymous child, put it into
 		// this node's data field
-		if ((tree->current->children.size() == 1) && (tree->current->children.front()->name == ""))
+		if ((tree->current->children.size() == 1) && (tree->current->children.front()->name.empty()))
 		{
 			tree->current->data = tree->current->children.front()->data;
 			delete tree->current->children.front();
@@ -105,9 +105,9 @@ static void onCharacterData(void *userData, const XML_Char *s, int len)
 	XMLTree* tree = (XMLTree*)userData;
 	if (tree->current != NULL)
 	{
-		if ((tree->current->children.size() > 0) && (tree->current->children.back()->name == ""))
+		if ((tree->current->children.size() > 0) && (tree->current->children.back()->name.empty()))
 		{
-			tree->current->children.back()->data += string(s, len);
+			tree->current->children.back()->data += wstring(s, len);
 		}
 		else
 		{
@@ -141,7 +141,7 @@ void XMLTree::parse(IFile* file)
 			unsigned long n = file->read(buffer, BUFFER_SIZE);
 			if (XML_Parse(parser, buffer, n, file->eof()) == 0)
 			{
-				const wstring error = AnsiToWide(XML_ErrorString(XML_GetErrorCode(parser)));
+				const wstring error = XML_ErrorString(XML_GetErrorCode(parser));
                 throw ParseException( LoadString(IDS_ERROR_XML, error.c_str(), XML_GetCurrentLineNumber(parser)) );
 			}
 		}

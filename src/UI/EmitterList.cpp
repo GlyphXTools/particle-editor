@@ -164,7 +164,7 @@ static LRESULT WINAPI LabelEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 
 static LRESULT CALLBACK EmitterTreeViewWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
         case WM_CHAR:
@@ -189,17 +189,17 @@ static LRESULT CALLBACK EmitterTreeViewWindowProc(HWND hWnd, UINT uMsg, WPARAM w
     return CallWindowProc(wndProc, hWnd, uMsg, wParam, lParam);
 }
 
-static BOOL WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+static INT_PTR WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_INITDIALOG:
 		{
 			control = (EmitterListControl*)lParam;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
-            HINSTANCE hInstance = (HINSTANCE)(LONG_PTR)GetWindowLong(hWnd, GWL_HINSTANCE);
+            HINSTANCE hInstance = (HINSTANCE)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
             
             //
             // Initialize treeview
@@ -209,10 +209,10 @@ static BOOL WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
     		TreeView_SetImageList(control->hTree, hImgList, TVSIL_NORMAL);
 
             // Subclass window proc for Cut/Copy/Paste operations
-            WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLong(control->hTree, GWL_WNDPROC);
+            WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr(control->hTree, GWLP_WNDPROC);
             SetProp(control->hTree, L"Old_WindowProc", (HANDLE)wndProc);
-            SetWindowLongPtr(control->hTree, GWL_USERDATA, (LONG)(LONG_PTR)control);
-            SetWindowLongPtr(control->hTree, GWL_WNDPROC,  (LONG)(LONG_PTR)EmitterTreeViewWindowProc);
+            SetWindowLongPtr(control->hTree, GWLP_USERDATA, (LONG)(LONG_PTR)control);
+            SetWindowLongPtr(control->hTree, GWLP_WNDPROC,  (LONG)(LONG_PTR)EmitterTreeViewWindowProc);
 
 			//
 			// Initialize toolbar
@@ -390,7 +390,7 @@ static BOOL WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
                         if (tvht.flags & TVHT_ONITEMICON)
                         {
                             // Don't change selection
-                            SetWindowLong(hWnd, DWL_MSGRESULT, TRUE);
+                            SetWindowLongPtr(hWnd, DWLP_MSGRESULT, TRUE);
                             return TRUE;
                         }
                     }
@@ -436,9 +436,9 @@ static BOOL WINAPI DlgEmitterListProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
                 {
                     // Workaround for bug in Knowledge Base item Q130691; subclass the edit control
                     HWND hEdit = TreeView_GetEditControl(control->hTree);
-                    WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLong(hEdit, GWL_WNDPROC);
+                    WNDPROC wndProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr(hEdit, GWLP_USERDATA);
                     SetProp(hEdit, L"Old_WindowProc", (HANDLE)wndProc);
-                    SetWindowLong(hEdit, GWL_WNDPROC, (LONG)(LONG_PTR)LabelEditProc);
+                    SetWindowLongPtr(hEdit, GWLP_USERDATA, (LONG)(LONG_PTR)LabelEditProc);
                     break;
                 }
 
@@ -506,7 +506,7 @@ static EmitterListControl* CreateEmitterListControl(HWND hOwner, HINSTANCE hInst
 
 static LRESULT CALLBACK EmitterListWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -517,7 +517,7 @@ static LRESULT CALLBACK EmitterListWindowProc(HWND hWnd, UINT uMsg, WPARAM wPara
 			{
 				return FALSE;
 			}
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 			break;
 		}
 
@@ -635,7 +635,7 @@ static void OnParticleSystemChange(EmitterListControl* control, ParticleSystem* 
 
 void EmitterList_SetParticleSystem(HWND hWnd, ParticleSystem* system)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         control->system = NULL;
@@ -646,7 +646,7 @@ void EmitterList_SetParticleSystem(HWND hWnd, ParticleSystem* system)
 
 void EmitterList_AddRootEmitter(HWND hWnd, const ParticleSystem::Emitter& emitter)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
     {
         ParticleSystem::Emitter* pEmitter = control->system->addRootEmitter(emitter);
@@ -662,7 +662,7 @@ void EmitterList_AddRootEmitter(HWND hWnd, const ParticleSystem::Emitter& emitte
 
 void EmitterList_AddLifetimeEmitter(HWND hWnd, const ParticleSystem::Emitter& emitter)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL && control->selection != NULL)
     {
         ParticleSystem::Emitter* pEmitter = control->system->addLifetimeEmitter(control->selection, emitter);
@@ -678,7 +678,7 @@ void EmitterList_AddLifetimeEmitter(HWND hWnd, const ParticleSystem::Emitter& em
 
 void EmitterList_AddDeathEmitter(HWND hWnd, const ParticleSystem::Emitter& emitter)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL && control->selection != NULL)
     {
         ParticleSystem::Emitter* pEmitter = control->system->addDeathEmitter(control->selection, emitter);
@@ -694,7 +694,7 @@ void EmitterList_AddDeathEmitter(HWND hWnd, const ParticleSystem::Emitter& emitt
 
 void EmitterList_DeleteEmitter(HWND hWnd)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL && control->selection != NULL)
     {
         control->system->deleteEmitter(control->selection);
@@ -710,7 +710,7 @@ void EmitterList_DeleteEmitter(HWND hWnd)
 
 void EmitterList_RenameEmitter(HWND hWnd)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL && control->selection != NULL)
     {
         TreeView_EditLabel(control->hTree, TreeView_GetSelection(control->hTree));
@@ -719,7 +719,7 @@ void EmitterList_RenameEmitter(HWND hWnd)
 
 ParticleSystem::Emitter* EmitterList_GetSelection(HWND hWnd)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         return control->selection;
@@ -751,7 +751,7 @@ static void EmitterList_SetAllEmitterVisibility(HWND hWnd, HTREEITEM hItem, bool
 
 void EmitterList_SetAllEmitterVisibility(HWND hWnd, bool visible)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         EmitterList_SetAllEmitterVisibility(control->hTree, TreeView_GetRoot(control->hTree), visible);
@@ -760,7 +760,7 @@ void EmitterList_SetAllEmitterVisibility(HWND hWnd, bool visible)
 
 void EmitterList_ToggleEmitterVisibility(HWND hWnd, HTREEITEM hItem)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         if (hItem == NULL)
@@ -788,7 +788,7 @@ void EmitterList_ToggleEmitterVisibility(HWND hWnd, HTREEITEM hItem)
 
 void EmitterList_SelectionChanged(HWND hWnd)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         wstring name = AnsiToWide(control->system->getEmitter(control->selection->index).name);
@@ -805,7 +805,7 @@ void EmitterList_SelectionChanged(HWND hWnd)
 
 bool EmitterList_HasFocus(HWND hWnd)
 {
-	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	EmitterListControl* control = (EmitterListControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
     {
         return GetFocus() == control->hTree;

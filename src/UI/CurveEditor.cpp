@@ -471,13 +471,13 @@ static bool PasteKeys(HWND hWnd, CurveControl* control)
 
 LRESULT CALLBACK CurveWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	switch (uMsg)
 	{
 		case WM_CREATE:
 		{
 			control = new CurveControl;
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)control);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)control);
 
 			control->editable    = false;
 			control->track       = NULL;
@@ -765,7 +765,7 @@ LRESULT CALLBACK CurveWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 void CurveEditor_SetCursorMode(HWND hWnd, CursorMode mode)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->mode = mode;
@@ -789,7 +789,7 @@ void CurveEditor_SetCursorMode(HWND hWnd, CursorMode mode)
 
 void CurveEditor_SetInterpolationType(HWND hWnd, ParticleSystem::Emitter::Track::InterpolationType type)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL && control->track != NULL)
 	{
 		control->track->interpolation = type;
@@ -799,7 +799,7 @@ void CurveEditor_SetInterpolationType(HWND hWnd, ParticleSystem::Emitter::Track:
 
 void CurveEditor_SetHorzRange(HWND hWnd, float xMin, float xMax, bool lock)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->data.xMin = xMin;
@@ -831,7 +831,7 @@ void CurveEditor_SetHorzRange(HWND hWnd, float xMin, float xMax, bool lock)
 
 void CurveEditor_SetVertRange(HWND hWnd, float yMin, float yMax, bool lock)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->data.yMin = yMin;
@@ -863,7 +863,7 @@ void CurveEditor_SetVertRange(HWND hWnd, float yMin, float yMax, bool lock)
 
 const SelectedKeys* CurveEditor_GetSelection(HWND hWnd)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		return &control->selection;
@@ -873,7 +873,7 @@ const SelectedKeys* CurveEditor_GetSelection(HWND hWnd)
 
 int CurveEditor_GetKeyCount(HWND hWnd)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		return (int)control->track->keys.size();
@@ -883,7 +883,7 @@ int CurveEditor_GetKeyCount(HWND hWnd)
 
 void CurveEditor_GetKey(HWND hWnd, int index, ParticleSystem::Emitter::Track::Key* key)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		for (ParticleSystem::Emitter::Track::KeyMap::const_iterator p = control->track->keys.begin(); p != control->track->keys.end(); p++, index--)
@@ -899,7 +899,7 @@ void CurveEditor_GetKey(HWND hWnd, int index, ParticleSystem::Emitter::Track::Ke
 
 int CurveEditor_AddKey(HWND hWnd, ParticleSystem::Emitter::Track::Key key, bool isBorder)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         // Bound the values
@@ -926,7 +926,7 @@ int CurveEditor_AddKey(HWND hWnd, ParticleSystem::Emitter::Track::Key key, bool 
 
 void CurveEditor_MoveSelection(HWND hWnd, float dTime, float dValue)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         typedef multimap<ParticleSystem::Emitter::Track::Key,SelectedKey> SelectionChangeMap;
@@ -979,7 +979,7 @@ void CurveEditor_MoveSelection(HWND hWnd, float dTime, float dValue)
 
 void CurveEditor_DeleteSelection(HWND hWnd)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
         int numKeys = (int)control->track->keys.size();
@@ -1003,7 +1003,7 @@ void CurveEditor_DeleteSelection(HWND hWnd)
 
 void CurveEditor_SetTrack(HWND hWnd, ParticleSystem::Emitter::Track *track, bool editable)
 {
-	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWL_USERDATA);
+	CurveControl* control = (CurveControl*)(LONG_PTR)GetWindowLongPtr(hWnd,GWLP_USERDATA);
 	if (control != NULL)
 	{
 		control->track    = track;

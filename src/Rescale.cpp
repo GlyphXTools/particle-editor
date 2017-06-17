@@ -10,15 +10,15 @@ struct RESCALE_OPTIONS
     float sizeScale;
 };
 
-static BOOL CALLBACK RescaleDialogFunc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+static INT_PTR CALLBACK RescaleDialogFunc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	RESCALE_OPTIONS* options = (RESCALE_OPTIONS*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+	RESCALE_OPTIONS* options = (RESCALE_OPTIONS*)(LONG_PTR)GetWindowLongPtr(hWnd, GWLP_USERDATA);
     switch (uMsg)
     {
     case WM_INITDIALOG:
     {
 		options = (RESCALE_OPTIONS*)lParam;
-		SetWindowLong(hWnd, GWL_USERDATA, (LONG)(LONG_PTR)options);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(LONG_PTR)options);
         SPINNER_INFO si;
         si.IsFloat = true;
         si.Mask       = SPIF_VALUE | SPIF_RANGE;
