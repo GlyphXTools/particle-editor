@@ -13,6 +13,6 @@ configuration:
   - Debug
   - Release
 
- artifacts:
+artifacts:
   - path: '**\ParticleEditor.exe'
     name: ParticleEditor
