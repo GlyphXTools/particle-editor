@@ -232,7 +232,7 @@ void EmitterInstance::ResetParticle(Particle& particle, TimeF currentTime)
 
 	particle.m_baseScale         = GetRandom(1.0f - m_emitter.randomScalePerc, 1.0f);
 	particle.m_rotationDirection = (!m_emitter.randomRotationDirection || GetRandom(0.0, 1.0f) < 0.5) ? 1.0f : -1.0f;
-	particle.m_baseRotation      = m_emitter.randomRotation ? m_emitter.randomRotationAverage + GetRandom(-m_emitter.randomRotationVariance, m_emitter.randomRotationVariance) : 0.0f;
+	particle.m_baseRotation      = m_emitter.randomRotation ? m_emitter.randomRotationAverage * (1 + GetRandom(-m_emitter.randomRotationVariance, m_emitter.randomRotationVariance)) : 0.0f;
 	if (m_emitter.doColorAddGrayscale)
 	{
 		particle.m_baseColor.x = particle.m_baseColor.y = particle.m_baseColor.z =

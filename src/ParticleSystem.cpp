@@ -115,7 +115,7 @@ void ParticleSystem::Emitter::writeProperties(ChunkWriter& writer) const
 	writeMiniInteger(writer, 0x10, textureSize);
 	writeMiniInteger(writer, 0x14, (unsigned long)index);
 	writeMiniBool   (writer, 0x15, unknown15);
-	writeMiniFloat  (writer, 0x17, fabs(randomRotationVariance / (1 + randomRotationAverage)) );
+	writeMiniFloat  (writer, 0x17, randomRotationVariance);
 	writeMiniFloat  (writer, 0x0B, -inwardAcceleration);
 	writeMiniBool   (writer, 0x23, randomRotationDirection);
 	writeMiniFloat  (writer, 0x24, initialDelay);
@@ -196,7 +196,7 @@ void ParticleSystem::Emitter::writeTracks(ChunkWriter& writer) const
 		if (randomRotation && i == TRACK_ROTATION_SPEED)
 		{
 			// If we use random rotation, this track is special
-			first = (randomRotationAverage * randomRotationVariance == 0) ? 0 : 1 + randomRotationAverage;
+            first = randomRotationAverage;
 			last  = 0;
 		}
 
@@ -310,7 +310,7 @@ void ParticleSystem::Emitter::readProperties(ChunkReader& reader)
 			case 0x12: randomScalePerc			= readFloat(reader); break;
 			case 0x13: randomLifetimePerc		= readFloat(reader); break;
 			case 0x14: readInteger(reader); break; // Read but ignore index
-			case 0x17: randomRotationVariance	= fabs(readFloat(reader)); break;
+            case 0x17: randomRotationVariance   = readFloat(reader); randomRotationVariance = max(0.0f, min(1.0f, randomRotationVariance)); break;
 			case 0x23: randomRotationDirection	= readBool(reader); break;
 			case 0x24: initialDelay				= readFloat(reader); break;
 			case 0x25: burstDelay				= readFloat(reader); break;
@@ -466,17 +466,7 @@ ParticleSystem::Emitter::Emitter(ChunkReader& reader)
 
 	if (randomRotation)
 	{
-		// Sanitize random rotation data
-		randomRotationAverage  = this->tracks[TRACK_ROTATION_SPEED]->keys.begin()->value;
-		if (randomRotationAverage > 0)
-		{
-			randomRotationVariance = randomRotationVariance / randomRotationAverage;
-			randomRotationAverage  = randomRotationAverage - (int)randomRotationAverage;
-		}
-		else
-		{
-			randomRotationVariance = 0.0f;
-		}
+		randomRotationAverage = this->tracks[TRACK_ROTATION_SPEED]->keys.begin()->value;
 	}
 
 	ChunkType type = reader.next();

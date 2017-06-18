@@ -222,7 +222,8 @@ static INT_PTR WINAPI DlgEmitterPropsProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			si.i.MaxValue  = 100;
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER13), &si);
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER14), &si);
-			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER18), &si);
+            Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER17), &si);
+            Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER18), &si);
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER19), &si);
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER24), &si);
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER25), &si);
@@ -232,7 +233,6 @@ static INT_PTR WINAPI DlgEmitterPropsProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			si.i.MinValue  = -180;
 			si.i.MaxValue  =  180;
 			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER16), &si);
-			Spinner_SetInfo( GetDlgItem(hWnd, IDC_SPINNER17), &si);
 
 			// Any floats
 			si.IsFloat     = true;
@@ -389,7 +389,7 @@ static INT_PTR WINAPI DlgEmitterPropsProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 						case IDC_SPINNER26: emitter.randomColors[3]		 = GetUIInteger(hWnd, uCtrlID) / 100.0f; break;
 						case IDC_SPINNER34: emitter.tailSize		     = GetUIFloat(hWnd, uCtrlID); break;
 						case IDC_SPINNER16: emitter.randomRotationAverage  = GetUIInteger(hWnd, uCtrlID) / 360.0f; break;
-						case IDC_SPINNER17: emitter.randomRotationVariance = GetUIInteger(hWnd, uCtrlID) / 360.0f; break;
+						case IDC_SPINNER17: emitter.randomRotationVariance = GetUIInteger(hWnd, uCtrlID) / 100.0f; break;
 						case IDC_SPINNER11: emitter.inwardSpeed          = GetUIFloat(hWnd, uCtrlID); break;
 						case IDC_SPINNER12: emitter.acceleration[0]      = GetUIFloat(hWnd, uCtrlID); break;
 						case IDC_SPINNER22: emitter.acceleration[1]      = GetUIFloat(hWnd, uCtrlID); break;
@@ -669,7 +669,7 @@ void EmitterProps_SetEmitter(HWND hWnd, ParticleSystem::Emitter* emitter)
 		SetUIBool   (hPage2, IDC_CHECK5,    emitter->randomRotationDirection);
 		SetUIBool   (hPage2, IDC_CHECK15,   emitter->randomRotation);
 		SetUIInteger(hPage2, IDC_SPINNER16, (int)(emitter->randomRotationAverage  * 360) );
-		SetUIInteger(hPage2, IDC_SPINNER17, (int)(emitter->randomRotationVariance * 360) );
+		SetUIInteger(hPage2, IDC_SPINNER17, (int)(emitter->randomRotationVariance * 100) );
 
 		// Rendering
 		SetUIBool   (hPage2, IDC_CHECK16, !emitter->isWorldOriented);
