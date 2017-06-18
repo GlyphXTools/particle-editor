@@ -99,33 +99,36 @@ static void EnableControls(EmitterPropsControl* control)
 	// First page
 	//
 
-    bool isDeathEmitter = (emitter->parent != NULL && emitter->parent->spawnOnDeath == emitter->index);
+    const bool isDeathEmitter = (emitter->parent != NULL && emitter->parent->spawnOnDeath == emitter->index);
+	const bool isLifeEmitter = (emitter->parent != NULL && emitter->parent->spawnDuringLife == emitter->index);
+	const bool isChildEmitter = isDeathEmitter || isLifeEmitter;
 
 	// Timing
 	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER28), !emitter->isWeatherParticle);
 	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER27), !emitter->isWeatherParticle);
 	// Generation
-    EnableWindow(GetDlgItem(hPage1, IDC_RADIO1),   !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_RADIO2),   !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_RADIO3),   !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_STATIC10), !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_STATIC11), !isDeathEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_RADIO1),   !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_RADIO2),   !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_RADIO3),   !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC10), !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC11), !isChildEmitter);
     EnableWindow(GetDlgItem(hPage1, IDC_STATIC13), !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_STATIC17), !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_STATIC18), !isDeathEmitter);
-    EnableWindow(GetDlgItem(hPage1, IDC_STATIC27), !isDeathEmitter);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER6),  !isDeathEmitter && !emitter->isWeatherParticle &&  emitter->useBursts);
-    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER3),  !isDeathEmitter && !emitter->isWeatherParticle &&  emitter->useBursts && emitter->nBursts != 1);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER10),                    !emitter->isWeatherParticle &&  emitter->useBursts);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER7),  !isDeathEmitter && !emitter->isWeatherParticle && !emitter->useBursts);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER15), !isDeathEmitter &&  emitter->isWeatherParticle);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER35), !isDeathEmitter &&  emitter->isWeatherParticle);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER31), !isDeathEmitter &&  emitter->isWeatherParticle);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC17), !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC18), !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC19), !isLifeEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_STATIC27), !isChildEmitter);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER6),  !isChildEmitter && !emitter->isWeatherParticle &&  emitter->useBursts);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER3),  !isChildEmitter && !emitter->isWeatherParticle &&  emitter->useBursts && emitter->nBursts != 1);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER10), !isLifeEmitter  && !emitter->isWeatherParticle &&  emitter->useBursts);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER7),  !isDeathEmitter && !emitter->isWeatherParticle && !emitter->useBursts);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER15), !isChildEmitter &&  emitter->isWeatherParticle);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER35), !isChildEmitter &&  emitter->isWeatherParticle);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER31), !isChildEmitter &&  emitter->isWeatherParticle);
 	// Connection
     EnableWindow(GetDlgItem(hPage1, IDC_CHECK2),    !emitter->isWeatherParticle);
-	EnableWindow(GetDlgItem(hPage1, IDC_COMBO1),    !emitter->isWeatherParticle);
+    EnableWindow(GetDlgItem(hPage1, IDC_COMBO1),    !emitter->isWeatherParticle);
     EnableWindow(GetDlgItem(hPage1, IDC_STATIC25),  !emitter->isWeatherParticle && emitter->emitFromMesh != ParticleSystem::EMIT_DISABLE);
-	EnableWindow(GetDlgItem(hPage1, IDC_SPINNER8),  !emitter->isWeatherParticle && emitter->emitFromMesh != ParticleSystem::EMIT_DISABLE);
+    EnableWindow(GetDlgItem(hPage1, IDC_SPINNER8),  !emitter->isWeatherParticle && emitter->emitFromMesh != ParticleSystem::EMIT_DISABLE);
 
 	//
 	// Second page

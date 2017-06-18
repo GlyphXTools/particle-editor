@@ -749,6 +749,7 @@ ParticleSystem::Emitter* ParticleSystem::addLifetimeEmitter(Emitter* parent, con
         pEmitter = new Emitter(emitter);
         pEmitter->index  = m_emitters.size();
         pEmitter->parent = parent;
+        pEmitter->useBursts = false;  // Life emitter is never bursts
         parent->spawnDuringLife = pEmitter->index;
 	    m_emitters.push_back(pEmitter);
     }
