@@ -34,6 +34,12 @@ D3DVERTEXELEMENT9 Engine::ParticleElements[] = {
 	D3DDECL_END()
 };
 
+TimeF GetTimeF()
+{
+    static auto start = GetTickCount();
+    return (GetTickCount() - start) / 1000.0f;
+}
+
 ParticleSystemInstance* Engine::SpawnParticleSystem(const ParticleSystem& system, Object3D* parent)
 {
 	auto instance = std::make_unique<ParticleSystemInstance>(*this, system, parent);

@@ -49,11 +49,7 @@ public:
 };
 
 typedef float TimeF;
-static TimeF GetTimeF()
-{
-    static auto start = GetTickCount();
-    return (GetTickCount() - start) / 1000.0f;
-}
+TimeF GetTimeF();
 
 class ParticleSystemInstance;
 class EmitterInstance;
