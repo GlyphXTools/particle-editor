@@ -568,7 +568,7 @@ LRESULT CALLBACK CurveWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 					// In Select mode we deselect it
                     if (!control->selection.empty())
 					{
-                        control->selection.empty();
+                        control->selection.clear();
 						Curve_OnSelectionChanged(hWnd, control);
 					}
 					break;

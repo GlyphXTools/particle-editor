@@ -203,9 +203,9 @@ static void GenerateRandomProperty(const ParticleSystem::Emitter::Group& group, 
 			float angleXY = GetRandom(D3DXToRadian(-180), D3DXToRadian(180));
 			float angleZ  = GetRandom(D3DXToRadian(- 90), D3DXToRadian( 90));
 			float radius  = (group.sphereEdge ? 1.0f : GetRandom(0.0f, 1.0f)) * group.sphereRadius;
-			value.x = radius * cos(angleZ) * cos(angleXY);
-			value.y = radius * cos(angleZ) * sin(angleXY);
-			value.z = radius * sin(angleZ);
+			value.x = radius * cosf(angleZ) * cosf(angleXY);
+			value.y = radius * cosf(angleZ) * sinf(angleXY);
+			value.z = radius * sinf(angleZ);
 			break;
 		}
 
@@ -213,8 +213,8 @@ static void GenerateRandomProperty(const ParticleSystem::Emitter::Group& group, 
 		{
 			float angleXY = GetRandom(D3DXToRadian(-180), D3DXToRadian(180));
 			float radius  = (group.cylinderEdge ? 1.0f : GetRandom(0.0f, 1.0f)) * group.cylinderRadius;
-			value.x = radius * cos(angleXY);
-			value.y = radius * sin(angleXY);
+			value.x = radius * cosf(angleXY);
+			value.y = radius * sinf(angleXY);
 			value.z = GetRandom(0.0f, group.cylinderHeight);
 			break;
 		}
@@ -302,7 +302,7 @@ void EmitterInstance::SpawnParticle(TimeF currentTime)
             // Solve x(t) = x(0) + v(0) * t + 0.5 * a * t * t = 0 for t:
             // t = (-b +/- sqrt(b^2 - 4ac)) / 2a =>
             // t = (-v + sqrt(v*v - 2*a*x)) / a
-            float D  = sqrt(particle.m_initialSpeed.z * particle.m_initialSpeed.z - 2 * particle.m_acceleration.z * particle.m_initialPosition.z);
+            float D  = sqrtf(particle.m_initialSpeed.z * particle.m_initialSpeed.z - 2 * particle.m_acceleration.z * particle.m_initialPosition.z);
             float t0 = (-particle.m_initialSpeed.z - D) / particle.m_acceleration.z;
             float t1 = (-particle.m_initialSpeed.z + D) / particle.m_acceleration.z;
             particle.m_bounceTime = max(t0, t1);
@@ -490,9 +490,9 @@ void EmitterInstance::UpdateParticle(Particle& particle, float t)
         D3DXVECTOR3 center = camera.Position + looking * m_emitter.weatherCubeDistance;
         
         float w = m_emitter.weatherCubeSize;
-        position.x = fmod(fmod(position.x - center.x + w/2, w) + w, w) - w/2 + center.x;
-        position.y = fmod(fmod(position.y - center.y + w/2, w) + w, w) - w/2 + center.y;
-        position.z = fmod(fmod(position.z - center.z + w/2, w) + w, w) - w/2 + center.z;
+        position.x = fmodf(fmodf(position.x - center.x + w/2, w) + w, w) - w/2 + center.x;
+        position.y = fmodf(fmodf(position.y - center.y + w/2, w) + w, w) - w/2 + center.y;
+        position.z = fmodf(fmodf(position.z - center.z + w/2, w) + w, w) - w/2 + center.z;
     }
     else switch (m_emitter.groundBehavior)
     {
@@ -543,11 +543,11 @@ void EmitterInstance::UpdateParticle(Particle& particle, float t)
     		    // Transform world-velocity into screen-velocity
 		        D3DXVec3TransformCoord(&velocity, &velocity, &m_engine.GetViewRotationMatrix());
             }
-		    angle += atan2(velocity.y, velocity.x) + PI / 4;
+		    angle += atan2f(velocity.y, velocity.x) + PI / 4;
 		    velocity.z = 0.0f;
 		    length = m_emitter.tailSize * mult * D3DXVec3Length(&velocity) / length ;
         }
-        verts[3].Position *= max(1.0f, sqrt(length * length / 2) );
+        verts[3].Position *= max(1.0f, sqrtf(length * length / 2) );
 	}
 
     // Set Normal vector
@@ -563,8 +563,8 @@ void EmitterInstance::UpdateParticle(Particle& particle, float t)
 	{
 		// Rotate particle
 		float x = verts[i].Position.x;
-		verts[i].Position.x = cos(angle) * x - sin(angle) * verts[i].Position.y;
-		verts[i].Position.y = sin(angle) * x + cos(angle) * verts[i].Position.y;
+		verts[i].Position.x = cosf(angle) * x - sinf(angle) * verts[i].Position.y;
+		verts[i].Position.y = sinf(angle) * x + cosf(angle) * verts[i].Position.y;
 
 		if (!m_emitter.isWorldOriented)
 		{
@@ -593,8 +593,8 @@ void EmitterInstance::UpdateParticle(Particle& particle, float t)
     {
         // For these blend modes, the RGB components of the vertex color contain
         // the tangent vector, which rotates along with the particle
-        color.x = 0.5f * cos(angle) + 0.5f;
-	    color.y = 0.5f * sin(angle) + 0.5f;
+        color.x = 0.5f * cosf(angle) + 0.5f;
+	    color.y = 0.5f * sinf(angle) + 0.5f;
         color.z = 0;
     }
     else
@@ -639,7 +639,7 @@ void EmitterInstance::onParticleSystemChanged(const Engine& engine, int track)
         m_nParticlesPerBurst = (!m_emitter.useBursts) ? 1 : m_emitter.nParticlesPerBurst;
 		m_spawnDelay         = (!m_emitter.useBursts) ? 1.0f / m_emitter.nParticlesPerSecond : max(0.01f, m_emitter.burstDelay);   // Ensure burst delay isn't 0
 		m_acceleration       = D3DXVECTOR3(m_emitter.acceleration) + m_emitter.gravity * engine.GetGravity();
-		m_textureSizeSqrt    = (int)floor(sqrt((float)max(1, m_emitter.textureSize)));
+		m_textureSizeSqrt    = (int)floor(sqrtf((float)max(1, m_emitter.textureSize)));
 
 		// Reload resources
 		SAFE_RELEASE(m_pColorTexture);
@@ -725,8 +725,6 @@ void EmitterInstance::onParticleSystemChanged(const Engine& engine, int track)
 			cursor.prev = cursor.next = m_emitter.tracks[track]->keys.begin();
 			while (cursor.next->time < relTime)
 			{
-                *cursor.prev;
-                *cursor.next;
 				cursor.prev = cursor.next;
 				if (++cursor.next == m_emitter.tracks[track]->keys.end())
 				{

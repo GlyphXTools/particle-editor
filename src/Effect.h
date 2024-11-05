@@ -2,6 +2,7 @@
 #define EFFECT_H
 
 #include "Types.h"
+#include <string>
 #include <vector>
 
 typedef int Phase;
